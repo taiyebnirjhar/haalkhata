@@ -69,7 +69,7 @@ export function CustomerTable() {
       <TableBody>
         {customerList &&
           customerList.length > 0 &&
-          customerList.reverse().map((items, index) => {
+          [...customerList].reverse().map((items, index) => {
             return (
               <TableRow
                 key={index}

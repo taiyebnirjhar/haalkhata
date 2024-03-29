@@ -29,7 +29,7 @@ function ReportTable({ details }) {
       <TableBody>
         {details &&
           details?.transaction_list?.length > 0 &&
-          details?.transaction_list.reverse().map((items, index) => {
+          [...details?.transaction_list].reverse().map((items, index) => {
             const date = new Date(items?.date);
 
             const formattedDate = date.toLocaleDateString("en-GB", {
