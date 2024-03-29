@@ -198,7 +198,7 @@ export default function TransactionForm({ setOpen }) {
         </div>
 
         <CardFooter className="flex justify-start   mt-6  p-0">
-          <Button type="submit" className="text-sm px-6" onClick={() => {}}>
+          <Button type="submit" className="text-sm px-6">
             Save
           </Button>
 

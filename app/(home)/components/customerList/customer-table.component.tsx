@@ -17,9 +17,16 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { ArrowLeftRight, ChevronRight, SquarePen, Trash2 } from "lucide-react";
+import {
+  ArrowLeftRight,
+  ChevronRight,
+  Phone,
+  SquarePen,
+  Trash2,
+} from "lucide-react";
 import { useState } from "react";
 import { AddTransaction } from "../addTransaction/add-transaction.component";
+import ReportDrawer from "../reportDrawer/report-drawer.component";
 import { CustomerEditAlert } from "./customer-edit-alert.component";
 import { CustomerRemoveAlert } from "./customer-remove-alert.component";
 import { CustomerReportAlert } from "./customer-report-alert.component";
@@ -28,6 +35,7 @@ export function CustomerTable() {
   const { customerList } = useAppSelector((state) => state.customers);
 
   const [openTransactionDialog, setOpenTransactionDialog] = useState(false);
+  const [openReportDrawer, setOpenReportDrawer] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -81,17 +89,16 @@ export function CustomerTable() {
                       <div className="font-semibold">
                         {items?.customer_info?.name}
                       </div>
-                      <div>
-                        {items?.customer_info?.due_balance > 0 ? (
-                          <div className="text-red-500">
-                            ৳ {items?.customer_info?.due_balance}
-                          </div>
-                        ) : (
-                          <div className="text-green-500">
-                            ৳ {items?.customer_info?.current_balance}
-                          </div>
-                        )}
-                      </div>
+                      {items?.customer_info?.phone && (
+                        <div className="inline-flex gap-x-[6px] text-xs pt-1">
+                          <Phone
+                            strokeWidth={2}
+                            size={14}
+                            className="text-blue-500 "
+                          />{" "}
+                          {items?.customer_info?.phone}
+                        </div>
+                      )}
                     </div>
 
                     <div className=" text-xs space-y-1 text-violet-500">
@@ -117,7 +124,11 @@ export function CustomerTable() {
                 </TableCell>
 
                 <TableCell className="text-center">
-                  <CustomerReportAlert handleReport={() => {}}>
+                  <CustomerReportAlert
+                    handleReport={() => {
+                      setOpenReportDrawer(true);
+                    }}
+                  >
                     <Button
                       variant="outline"
                       className="px-2 py-4  text-blue-500 hover:text-blue-700"
@@ -152,6 +163,12 @@ export function CustomerTable() {
                     </Button>
                   </CustomerRemoveAlert>
                 </TableCell>
+
+                <ReportDrawer
+                  open={openReportDrawer}
+                  setOpen={setOpenReportDrawer}
+                  details={items}
+                />
 
                 <AddTransaction
                   open={openTransactionDialog}
