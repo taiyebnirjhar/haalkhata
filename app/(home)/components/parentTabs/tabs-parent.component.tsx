@@ -9,7 +9,7 @@ export function TabsParent() {
   return (
     <Tabs
       defaultValue="add_new_customer"
-      className="w-[90%] mx-auto sm:min-w-sm  md:min-w-md md:max-w-[80%] lg:min-w-lg lg:max-w-[70%] xl:min-w-xl xl:max-w-xl 2xl:min-w-2xl 2xl:max-w-2xl"
+      className="w-[90%] mx-auto sm:min-w-sm  md:min-w-md md:max-w-[80%] lg:min-w-lg lg:max-w-screen-md xl:min-w-xl xl:max-w-screen-md 2xl:min-w-2xl 2xl:max-w-screen-md"
     >
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger className="cursor-pointer" value="add_new_customer">

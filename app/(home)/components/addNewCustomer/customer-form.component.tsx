@@ -60,8 +60,8 @@ export default function CustomerForm() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      name: "",
-      phone: "",
+      name: "Taiyeb Nirjhor",
+      phone: "01913152255",
     },
   });
 

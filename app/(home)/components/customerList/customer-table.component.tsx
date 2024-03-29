@@ -50,8 +50,9 @@ export function CustomerTable() {
           <TableHead className="w-[100px] ">
             <div className="pl-3">User</div>
           </TableHead>
-          <TableHead className=""> Transactions</TableHead>
-          <TableHead className="">Update</TableHead>
+          <TableHead className="text-center">Balance</TableHead>
+          <TableHead className="text-center">Transactions</TableHead>
+          <TableHead className="text-center">Update</TableHead>
           <TableHead className="text-right">Remove</TableHead>
         </TableRow>
       </TableHeader>
@@ -99,7 +100,23 @@ export function CustomerTable() {
                   </div>
                 </TableCell>
 
-                <TableCell className="text-middle">
+                <TableCell className="text-center">
+                  <div className="text-sm space-y-1">
+                    <div>
+                      {items?.customer_info?.due_balance > 0 ? (
+                        <div className="text-red-500">
+                          ৳ {items?.customer_info?.due_balance}
+                        </div>
+                      ) : (
+                        <div className="text-green-500">
+                          ৳ {items?.customer_info?.current_balance}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </TableCell>
+
+                <TableCell className="text-center">
                   <CustomerReportAlert handleReport={() => {}}>
                     <Button
                       variant="outline"
@@ -110,7 +127,7 @@ export function CustomerTable() {
                   </CustomerReportAlert>
                 </TableCell>
 
-                <TableCell className="text-middle">
+                <TableCell className="text-center">
                   <CustomerEditAlert handleEdit={() => {}}>
                     <Button
                       variant="outline"
