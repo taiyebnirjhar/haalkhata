@@ -11,23 +11,7 @@ import { X } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { Button } from "@/components/ui/button";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-
-import {
-  ArrowLeftRight,
-  ChevronRight,
-  Phone,
-  SquarePen,
-  Trash2,
-} from "lucide-react";
+import ReportTable from "./report-table.component";
 
 const FormSchema = z.object({
   orderTax: z
@@ -87,114 +71,14 @@ export default function ReportDrawer({ open, setOpen, details }) {
             <div className="mt-2">
               <ReportTable details={details} />
             </div>
+            {details && details?.transaction_list.length === 0 && (
+              <div className="w-full h-[40vh] flex  justify-center items-center text-xl opacity-60 font-semibold  text-foreground">
+                No Transaction Added ..
+              </div>
+            )}
           </main>
         </DrawerContent>
       </Drawer>
     </>
-  );
-}
-
-function ReportTable({ details }) {
-  console.log(details);
-  return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead className="w-[100px] text-start">
-            <div className="">Transactions</div>
-          </TableHead>
-          <TableHead className="text-center">Sale/Return</TableHead>
-          <TableHead className="text-center">Payment</TableHead>
-          <TableHead className="text-right">Actions</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {details &&
-          details?.transaction_list?.length > 0 &&
-          details?.transaction_list.map((items, index) => {
-            return (
-              <TableRow
-                key={index}
-                className="cursor-pointer hover:bg-violet-50"
-              >
-                <TableCell
-                  className="w-full"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    // setOpenTransactionDialog(true);
-                  }}
-                >
-                  <div className="flex mt-[2px] justify-start gap-x-4 items-center ">
-                    <div className="font-medium  w-5 h-5 rounded-full bg-violet-500 text-white flex justify-center items-center uppercase p-5 ">
-                      {details?.customer_info?.name.slice(0, 1)}
-                    </div>
-
-                    <div className=" text-sm space-y-1">
-                      <div className="font-semibold">
-                        {details?.customer_info?.name}
-                      </div>
-                      {details?.customer_info?.phone && (
-                        <div className="inline-flex gap-x-[6px] text-xs pt-1">
-                          <Phone
-                            strokeWidth={2}
-                            size={14}
-                            className="text-blue-500 "
-                          />{" "}
-                          {details?.customer_info?.phone}
-                        </div>
-                      )}
-                    </div>
-
-                    <div className=" text-xs space-y-1 text-violet-500">
-                      <ChevronRight size={20} className="ml-2" />
-                    </div>
-                  </div>
-                </TableCell>
-
-                <TableCell className="text-center">
-                  <div className="text-sm space-y-1">
-                    <div>
-                      {details?.customer_info?.due_balance > 0 ? (
-                        <div className="text-red-500">
-                          ৳ {details?.customer_info?.due_balance}
-                        </div>
-                      ) : (
-                        <div className="text-green-500">
-                          ৳ {details?.customer_info?.current_balance}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </TableCell>
-
-                <TableCell className="text-center">
-                  <Button
-                    variant="outline"
-                    className="px-2 py-4  text-blue-500 hover:text-blue-700"
-                  >
-                    <ArrowLeftRight size={20} className="mr-2" /> Report
-                  </Button>
-                </TableCell>
-
-                <TableCell className="text-right flex gap-x-3">
-                  <Button
-                    variant="outline"
-                    className="px-2 py-4  text-blue-500 hover:text-blue-700"
-                  >
-                    <SquarePen size={20} className="mr-2" /> Edit
-                  </Button>
-
-                  <Button
-                    variant="outline"
-                    className="px-2 py-4  text-red-500 hover:text-red-700"
-                  >
-                    <Trash2 size={20} className="mr-2" /> Delete
-                  </Button>
-                </TableCell>
-              </TableRow>
-            );
-          })}
-      </TableBody>
-    </Table>
   );
 }
