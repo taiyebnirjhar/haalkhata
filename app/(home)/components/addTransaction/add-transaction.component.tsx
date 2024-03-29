@@ -33,7 +33,7 @@ export function AddTransaction({ open, setOpen, customer_info }) {
             </div>
           </DialogDescription>
         </DialogHeader>
-        <TransactionForm setOpen={setOpen} />
+        <TransactionForm setOpen={setOpen} customer_info={customer_info} />
       </DialogContent>
     </Dialog>
   );

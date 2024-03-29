@@ -1,3 +1,4 @@
+import { v4 as uuid } from "uuid";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -13,7 +14,10 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { useAppSelector } from "@/hooks/store.hook";
-import { CustomerProps, addCustomer } from "@/redux/slices/customers.slice";
+import {
+  CustomerTransactionProps,
+  addCustomerTransaction,
+} from "@/redux/slices/customers.slice";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -35,7 +39,7 @@ const FormSchema = z.object({
   payment_amount: z.union([z.number(), z.string()]).optional(),
   description: z.string().optional(),
   date: z.date({
-    required_error: "A date of birth is required.",
+    required_error: "A date of sale/return is required.",
   }),
 });
 
@@ -66,7 +70,7 @@ const FormInputItems = [
   },
 ];
 
-export default function TransactionForm({ setOpen }) {
+export default function TransactionForm({ setOpen, customer_info }) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -82,21 +86,25 @@ export default function TransactionForm({ setOpen }) {
   const dispatch = useDispatch();
   const { customerList } = useAppSelector((state) => state.customers);
 
-  const handleAddCustomer = (newCustomer: CustomerProps) => {
-    dispatch(addCustomer(newCustomer));
+  const handleAddTransaction = (
+    customerId: string,
+    newTransaction: CustomerTransactionProps
+  ) => {
+    dispatch(addCustomerTransaction({ customerId, newTransaction }));
   };
 
   const onSubmit = (data) => {
-    const { sale_or_return_amount, payment_amount, description } = data;
-    // console.log(parseInt(due_balance));
-    // const new_customer = {
-    //   id: uuid(),
-    //   name,
-    //   phone,
-    //   due_balance: 0,
-    //   current_balance: 0,
-    // };
-    // handleAddCustomer(new_customer);
+    const { sale_or_return_amount, payment_amount, description, date } = data;
+    console.log(data);
+    const new_transaction = {
+      id: uuid(),
+      sale_or_return_amount: parseInt(sale_or_return_amount) || 0,
+      payment_amount: parseInt(payment_amount) || 0,
+      description: description || "",
+      date: date,
+    };
+
+    handleAddTransaction(customer_info?.id, new_transaction);
 
     form.reset();
     setOpen(false);
