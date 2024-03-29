@@ -110,12 +110,12 @@ export function CustomerTable() {
                 <TableCell className="text-center">
                   <div className="text-sm space-y-1">
                     <div>
-                      {items?.customer_info?.due_balance > 0 ? (
-                        <div className="text-red-500">
-                          ৳ {items?.customer_info?.due_balance}
+                      {items?.customer_info?.current_balance > 0 ? (
+                        <div className="text-green-500 inline-flex gap-x-1">
+                          ৳ {items?.customer_info?.current_balance}
                         </div>
                       ) : (
-                        <div className="text-green-500">
+                        <div className="text-red-500 inline-flex gap-x-1">
                           ৳ {items?.customer_info?.current_balance}
                         </div>
                       )}

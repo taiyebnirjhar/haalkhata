@@ -28,6 +28,38 @@ const initialState: CustomerState = {
   customerList: [],
 };
 
+const updateBalances = (
+  customer: CustomerDataProps,
+  transaction: CustomerTransactionProps
+) => {
+  const { sale_or_return_amount, payment_amount } = transaction;
+  if (sale_or_return_amount) {
+    customer.customer_info.current_balance -= sale_or_return_amount;
+  }
+  if (payment_amount) {
+    customer.customer_info.current_balance += payment_amount;
+  }
+  customer.customer_info.due_balance = customer.customer_info.current_balance;
+};
+
+export const calculateTransactionTotals = (
+  transactions: CustomerTransactionProps[]
+) => {
+  let totalSaleReturn = 0;
+  let totalPayment = 0;
+
+  transactions.forEach((transaction) => {
+    if (transaction.sale_or_return_amount) {
+      totalSaleReturn += transaction.sale_or_return_amount;
+    }
+    if (transaction.payment_amount) {
+      totalPayment += transaction.payment_amount;
+    }
+  });
+
+  return { totalSaleReturn, totalPayment };
+};
+
 export const customerSlice = createSlice({
   name: "customerSlice",
   initialState,
@@ -79,6 +111,7 @@ export const customerSlice = createSlice({
       );
       if (customerIndex !== -1) {
         state.customerList[customerIndex].transaction_list.push(newTransaction);
+        updateBalances(state.customerList[customerIndex], newTransaction);
       }
     },
     updateCustomerTransactions: (
@@ -95,6 +128,10 @@ export const customerSlice = createSlice({
       if (customerIndex !== -1) {
         state.customerList[customerIndex].transaction_list =
           updatedTransactions;
+
+        updatedTransactions.forEach((transaction) => {
+          updateBalances(state.customerList[customerIndex], transaction);
+        });
       }
     },
     deleteCustomerTransaction: (
@@ -112,10 +149,15 @@ export const customerSlice = createSlice({
           (transaction) => transaction.id === transactionId
         );
         if (transactionIndex !== -1) {
+          const deletedTransaction =
+            state.customerList[customerIndex].transaction_list[
+              transactionIndex
+            ];
           state.customerList[customerIndex].transaction_list.splice(
             transactionIndex,
             1
           );
+          updateBalances(state.customerList[customerIndex], deletedTransaction);
         }
       }
     },

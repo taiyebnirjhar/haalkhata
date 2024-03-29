@@ -62,9 +62,21 @@ function ReportTable({ details }) {
                       <div>{items?.description}</div>
                     )}
 
-                    <div className="pt-4">
-                      <Badge variant="secondary">
-                        New Balance {details?.customer_info?.current_balance}
+                    <div className="pt-5">
+                      <Badge
+                        variant="outline"
+                        className="inline-flex gap-x-2 opacity-80"
+                      >
+                        New Balance:
+                        {details?.customer_info?.current_balance < 0 ? (
+                          <span className="text-red-500">
+                            {details?.customer_info?.current_balance}
+                          </span>
+                        ) : (
+                          <span className="text-green-500">
+                            {details?.customer_info?.current_balance}
+                          </span>
+                        )}
                       </Badge>
                     </div>
                   </div>

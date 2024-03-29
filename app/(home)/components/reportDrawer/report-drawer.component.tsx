@@ -11,6 +11,8 @@ import { X } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { Badge } from "@/components/ui/badge";
+import { calculateTransactionTotals } from "@/redux/slices/customers.slice";
 import ReportTable from "./report-table.component";
 
 const FormSchema = z.object({
@@ -51,6 +53,10 @@ export default function ReportDrawer({ open, setOpen, details }) {
 
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {};
 
+  const { totalSaleReturn, totalPayment } = calculateTransactionTotals(
+    details?.transaction_list
+  );
+
   return (
     <>
       <Drawer open={open} onOpenChange={setOpen}>
@@ -68,6 +74,19 @@ export default function ReportDrawer({ open, setOpen, details }) {
           </DrawerHeader>
 
           <main className="px-12 space-y-5 overflow-y-scroll pb-8">
+            <div className="flex gap-x-3 py-6 ">
+              <Badge variant="secondary" className="">
+                Total Sale/Return: {totalSaleReturn}
+              </Badge>
+
+              <Badge variant="secondary">Total Payment: {totalPayment}</Badge>
+
+              {totalPayment < totalSaleReturn && (
+                <Badge variant="secondary" className="text-red-500">
+                  Due: {totalSaleReturn - totalPayment}
+                </Badge>
+              )}
+            </div>
             <div className="mt-2">
               <ReportTable details={details} />
             </div>

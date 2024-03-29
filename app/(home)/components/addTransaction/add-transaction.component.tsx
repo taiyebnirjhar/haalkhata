@@ -15,18 +15,13 @@ export function AddTransaction({ open, setOpen, customer_info }) {
           <DialogTitle className="mb-3">Add New Transaction</DialogTitle>
           <DialogDescription className="text-xs flex border-y justify-between py-1.5 ">
             <div className="inline-flex gap-x-2">
-              {customer_info?.due_balance > 0 ? (
-                <div>Due</div>
-              ) : (
-                <div>Balance</div>
-              )}
-
-              {customer_info?.due_balance > 0 ? (
-                <div className="text-red-500">
-                  ৳ {customer_info?.due_balance}
+              <div>Balance: </div>
+              {customer_info?.current_balance > 0 ? (
+                <div className="text-green-500 inline-flex gap-x-1 min-w-fit">
+                  ৳ {customer_info?.current_balance}
                 </div>
               ) : (
-                <div className="text-green-500">
+                <div className="text-red-500 inline-flex gap-x-1 min-w-fit">
                   ৳ {customer_info?.current_balance}
                 </div>
               )}
