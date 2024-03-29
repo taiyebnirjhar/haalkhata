@@ -1,0 +1,59 @@
+**Project Title:** Tong Sales Management System
+
+**Project Objective:**
+Design a developer-friendly system to manage sales transactions between a local shop named "AkasheyAashen" and its customers. The system will provide a clear structure and guidelines for developers to implement the required features using Next.js, Redux Toolkit, and RTK Query efficiently.
+
+**Project Requirements:**
+
+1. **User Stories:**
+   - As a shop owner, I want to be able to save customer information, including name, phone number, and initial balance (advance or due).
+   - As a shop owner, I want to record daily sales transactions made by customers.
+   - As a shop owner, I want to generate a ticket for each sales transaction, including the sale amount, date, and time.
+   - As a shop owner, I want the customer's balance to be updated automatically after each sales transaction.
+   - As a shop owner, I want to be able to view a summary of daily sales transactions and customer balances.
+
+2. **Technical Stack:**
+   - Next.js for building the frontend application.
+   - Redux Toolkit for efficient state management.
+   - RTK Query for handling API requests and managing server state.
+
+3. **Database Schema:**
+   - **Customers Table:**
+     - id (Primary Key)
+     - name
+     - phone number
+     - balance (advance or due)
+   - **Sales Transactions Table:**
+     - id (Primary Key)
+     - customer_id (Foreign Key referencing Customers Table)
+     - sale_amount
+     - date
+     - time
+
+4. **System Components:**
+   - **Customer Management Component:**
+     - Implement CRUD operations for managing customers.
+     - Utilize Redux Toolkit for state management.
+   - **Sales Transaction Component:**
+     - Implement functionality to record sales transactions for each customer.
+     - Generate tickets for sales transactions.
+   - **Summary Component:**
+     - Display daily sales transactions summary.
+     - Display customer balances.
+     - Utilize RTK Query for efficient data fetching.
+
+5. **Developer Guidelines:**
+   - Follow Next.js conventions for project structure and routing.
+   - Utilize Redux Toolkit's slice and createAsyncThunk for managing state and asynchronous actions.
+   - Use RTK Query hooks for making API requests and managing server state.
+   - Write clear and concise code with appropriate comments and documentation.
+
+6. **Project Timeline:**
+   - Set up project environment (30 mins).
+   - Design database schema (15 mins).
+   - Implement customer management component (45 mins).
+   - Implement sales transaction component (45 mins).
+   - Implement summary component (15 mins).
+
+**Conclusion:**
+This project provides clear guidelines and structure for developers to efficiently implement the required features using Next.js, Redux Toolkit, and RTK Query. By following the provided technical stack and developer guidelines, developers can build a robust and developer-friendly Tong Sales Management System.
