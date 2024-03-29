@@ -18,7 +18,7 @@ export function CustomerReportAlert({ children, handleReport }) {
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    handleReport();
+    handleReport(e);
   };
 
   const stopPropagation = (e: MouseEvent<HTMLDivElement>) => {

@@ -57,6 +57,8 @@ export default function ReportDrawer({ open, setOpen, details }) {
     details?.transaction_list
   );
 
+  console.log(details);
+
   return (
     <>
       <Drawer open={open} onOpenChange={setOpen}>

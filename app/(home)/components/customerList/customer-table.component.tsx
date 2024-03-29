@@ -34,6 +34,8 @@ import { CustomerReportAlert } from "./customer-report-alert.component";
 export function CustomerTable() {
   const { customerList } = useAppSelector((state) => state.customers);
 
+  const [selectedCustomer, setSelectedCustomer] = useState(null);
+
   const [openTransactionDialog, setOpenTransactionDialog] = useState(false);
   const [openReportDrawer, setOpenReportDrawer] = useState(false);
 
@@ -77,6 +79,7 @@ export function CustomerTable() {
                   className="w-full"
                   onClick={(e) => {
                     e.stopPropagation();
+                    setSelectedCustomer(items);
                     setOpenTransactionDialog(true);
                   }}
                 >
@@ -125,7 +128,9 @@ export function CustomerTable() {
 
                 <TableCell className="text-center">
                   <CustomerReportAlert
-                    handleReport={() => {
+                    handleReport={(e) => {
+                      e.stopPropagation();
+                      setSelectedCustomer(items);
                       setOpenReportDrawer(true);
                     }}
                   >
@@ -151,9 +156,10 @@ export function CustomerTable() {
 
                 <TableCell className="text-right">
                   <CustomerRemoveAlert
-                    handleDelete={() =>
-                      deleteExistingCustomer(items?.customer_info?.id)
-                    }
+                    handleDelete={(e) => {
+                      e.stopPropagation();
+                      deleteExistingCustomer(items?.customer_info?.id);
+                    }}
                   >
                     <Button
                       variant="outline"
@@ -167,13 +173,13 @@ export function CustomerTable() {
                 <ReportDrawer
                   open={openReportDrawer}
                   setOpen={setOpenReportDrawer}
-                  details={items}
+                  details={selectedCustomer}
                 />
 
                 <AddTransaction
                   open={openTransactionDialog}
                   setOpen={setOpenTransactionDialog}
-                  customer_info={items?.customer_info}
+                  customer_info={selectedCustomer?.customer_info}
                 />
               </TableRow>
             );

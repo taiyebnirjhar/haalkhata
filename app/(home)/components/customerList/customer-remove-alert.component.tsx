@@ -18,7 +18,7 @@ export function CustomerRemoveAlert({ children, handleDelete }) {
 
   const handleDeleteClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    handleDelete();
+    handleDelete(e);
   };
 
   const stopPropagation = (e: MouseEvent<HTMLDivElement>) => {

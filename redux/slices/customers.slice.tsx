@@ -48,7 +48,7 @@ export const calculateTransactionTotals = (
   let totalSaleReturn = 0;
   let totalPayment = 0;
 
-  transactions.forEach((transaction) => {
+  transactions?.forEach((transaction) => {
     if (transaction.sale_or_return_amount) {
       totalSaleReturn += transaction.sale_or_return_amount;
     }
