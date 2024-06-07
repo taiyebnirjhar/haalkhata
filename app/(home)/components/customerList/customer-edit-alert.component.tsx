@@ -9,7 +9,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { SquarePen } from "lucide-react";
+import { DollarSign } from "lucide-react";
 import { MouseEvent, useRef, useState } from "react";
 
 export function CustomerEditAlert({ children, handleEdit }) {
@@ -18,6 +18,7 @@ export function CustomerEditAlert({ children, handleEdit }) {
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+
     handleEdit();
   };
 
@@ -32,11 +33,11 @@ export function CustomerEditAlert({ children, handleEdit }) {
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle className="flex flex-col justify-center items-center gap-3">
-              <SquarePen size={80} className="text-blue-500" />
-              <span className="text-base mb-2">Edit !</span>
+              <DollarSign size={80} className="text-blue-500" />
+              <span className="text-base mb-2">Transaction !</span>
             </AlertDialogTitle>
             <AlertDialogDescription className="text-center">
-              Are you want to Edit this?
+              Are you want to add transaction ?
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className="sm:justify-center">
@@ -46,7 +47,7 @@ export function CustomerEditAlert({ children, handleEdit }) {
                 setOpen(!open);
               }}
             >
-              Start Editing
+              Yes
             </AlertDialogAction>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
           </AlertDialogFooter>

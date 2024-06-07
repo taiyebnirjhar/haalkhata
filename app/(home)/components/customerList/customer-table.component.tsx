@@ -20,8 +20,8 @@ import {
 import {
   ArrowLeftRight,
   ChevronRight,
+  DollarSign,
   Phone,
-  SquarePen,
   Trash2,
 } from "lucide-react";
 import { useState } from "react";
@@ -61,8 +61,8 @@ export function CustomerTable() {
             <div className="pl-3">User</div>
           </TableHead>
           <TableHead className="text-center">Balance</TableHead>
-          <TableHead className="text-center">Transactions</TableHead>
-          <TableHead className="text-center">Update</TableHead>
+          <TableHead className="text-center">Report</TableHead>
+          <TableHead className="text-center">Transaction</TableHead>
           <TableHead className="text-right">Remove</TableHead>
         </TableRow>
       </TableHeader>
@@ -144,12 +144,17 @@ export function CustomerTable() {
                 </TableCell>
 
                 <TableCell className="text-center">
-                  <CustomerEditAlert handleEdit={() => {}}>
+                  <CustomerEditAlert
+                    handleEdit={() => {
+                      setSelectedCustomer(items);
+                      setOpenTransactionDialog(true);
+                    }}
+                  >
                     <Button
                       variant="outline"
                       className="px-2 py-4  text-blue-500 hover:text-blue-700"
                     >
-                      <SquarePen size={20} className="mr-2" /> Edit
+                      <DollarSign size={20} className="mr-2" /> transaction
                     </Button>
                   </CustomerEditAlert>
                 </TableCell>
